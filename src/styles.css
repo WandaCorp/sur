@@ -1,0 +1,213 @@
+/**
+ * Sistema de diseño MHD+.
+ * Tokens en @theme (Tailwind v4) + CSS extra para carrusel, filas, skeletons y lightbox.
+ * Paleta pedida: fondo #000000, acento dorado #FFD700, rojo #E50914, cian TMDb #00A8E1.
+ */
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme {
+  --color-bg: #000000;
+  --color-surface: #121212;
+  --color-elevated: #1a1a1a;
+  --color-fg: #f5f5f5;
+  --color-muted: #a3a3a3;
+  --color-subtle: #737373;
+  --color-gold: #ffd700;
+  --color-gold-fg: #111111;
+  --color-red: #e50914;
+  --color-cyan: #00a8e1;
+  --color-border: #2a2a2a;
+  --color-overlay: rgb(0 0 0 / 72%);
+
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bebas Neue", "Arial Narrow", Impact, sans-serif;
+
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  --shadow-card: 0 12px 40px rgb(0 0 0 / 45%);
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-gold) 80%, black);
+    color: #111;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* Scrollbar discreta, acorde al tema oscuro */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #3a3a3a transparent;
+}
+
+/* Filas horizontales: oculta scrollbar pero mantiene swipe */
+.row-scroll {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.row-scroll::-webkit-scrollbar {
+  display: none;
+}
+.row-scroll > * {
+  scroll-snap-align: start;
+  flex: 0 0 auto;
+}
+
+/* Fade en los bordes de las filas */
+.row-fade {
+  position: relative;
+  min-width: 0;
+  max-width: 100%;
+}
+.row-fade::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 3rem;
+  height: 100%;
+  background: linear-gradient(to right, transparent, var(--color-bg));
+}
+
+/* Skeleton shimmer */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-elevated);
+  border-radius: var(--radius-md);
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklab, var(--color-fg) 8%, transparent),
+    transparent
+  );
+  animation: shimmer 1.4s linear infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Hero carousel */
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.04);
+  transition:
+    opacity var(--hero-fade, 500ms) cubic-bezier(0.22, 1, 0.36, 1),
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+.hero-slide.is-active {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.hero-overlay {
+  background:
+    linear-gradient(to top, #000 0%, rgb(0 0 0 / 55%) 38%, rgb(0 0 0 / 15%) 70%, rgb(0 0 0 / 40%) 100%),
+    linear-gradient(to right, rgb(0 0 0 / 75%) 0%, rgb(0 0 0 / 20%) 55%, transparent 100%);
+}
+
+/* Póster: hover cinematográfico */
+.poster-card {
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 220ms ease;
+}
+.poster-card:hover,
+.poster-card:focus-visible {
+  transform: translateY(-6px);
+  box-shadow: 0 0 0 1px var(--color-gold), var(--shadow-card);
+}
+
+/* Lightbox */
+.lightbox-backdrop {
+  background: rgb(0 0 0 / 88%);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .skeleton::after,
+  .hero-slide,
+  .poster-card {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: 80;
+  background: var(--color-gold);
+  color: var(--color-gold-fg);
+  padding: 0.5rem 0.9rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+}
+.skip-link:focus {
+  top: 1rem;
+}

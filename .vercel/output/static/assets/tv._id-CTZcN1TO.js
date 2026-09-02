@@ -1,0 +1,1 @@
+import{M as e}from"./skeleton-BH1BvV0V.js";import{t}from"./index-C8IAUZ0_.js";import{t as n}from"./media-details-BCwS5PnW.js";var r=e();function i(){let e=t.useLoaderData();return(0,r.jsx)(n,{data:e,type:`tv`})}export{i as component};

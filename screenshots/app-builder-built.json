@@ -1,0 +1,38 @@
+{
+  "url": "http://127.0.0.1:8081/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "MHD+ · Películas y series",
+      "hasCanvas": false,
+      "bodyTextLen": 9539,
+      "bodyTextHash": "859322b43669fed29b5afff282316d95dffadf07cd52a8789031eeb24f2841ef",
+      "bodyTextPrefix": "Saltar al contenido MHD + Inicio Películas Series Favoritos Busc",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "MHD+ · Películas y series",
+      "hasCanvas": false,
+      "bodyTextLen": 9466,
+      "bodyTextHash": "cdbcc5ffddc1d39ce35f311e53d53c4237820f3421a7f8d3b9f7ec8769a62956",
+      "bodyTextPrefix": "Saltar al contenido MHD + DESTACADO Susurran tu nombre 6.4 2026 ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-built.json",
+  "divergesFromBaseline": false,
+  "baselineReasons": []
+}
